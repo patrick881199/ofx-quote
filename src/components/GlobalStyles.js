@@ -55,6 +55,8 @@ const GlobalStyled = createGlobalStyle`
         font-family: "Montserrat", sans-serif;
     }
 
+    
+
 `;
 
 export default GlobalStyled;

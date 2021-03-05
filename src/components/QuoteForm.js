@@ -1,14 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAsterisk } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch, useSelector } from "react-redux";
+import getQuote from "../store/actions/quoteAction";
 
 const QuoteForm = () => {
   const star = <FontAwesomeIcon icon={faAsterisk} />;
+
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [fromCurrency, setFromCurrency] = useState("");
+  const [toCurrency, setToCurrency] = useState("");
+  const [amount, setAmount] = useState("");
+
+  const dispatch = useDispatch();
+  const quoteInfo = useSelector((state) => state.quoteInfo);
+  const { loading } = quoteInfo;
+
+  const formSubmitHandler = (e) => {
+    e.preventDefault();
+
+    dispatch(getQuote(fromCurrency, toCurrency, amount));
+  };
+
+  useEffect(() => {
+    if (!loading) {
+      console.log("hah");
+    }
+  }, [loading]);
+
   return (
     <Wrapper className="formWrapper">
       <h2>Quick Quote</h2>
-      <form action="">
+      <form
+        onSubmit={(e) => {
+          formSubmitHandler(e);
+        }}
+      >
         <div className="oneline">
           <div className="inputWrapper">
             <label htmlFor="firstname">
@@ -20,6 +51,10 @@ const QuoteForm = () => {
               id="firstname"
               name="firstname"
               placeholder="First Name"
+              value={firstname}
+              onChange={(e) => {
+                setFirstname(e.target.value);
+              }}
               required
             />
           </div>
@@ -33,6 +68,10 @@ const QuoteForm = () => {
               id="lastname"
               name="lastname"
               placeholder="Last Name"
+              value={lastname}
+              onChange={(e) => {
+                setLastname(e.target.value);
+              }}
               required
             />
           </div>
@@ -42,9 +81,13 @@ const QuoteForm = () => {
             <label htmlFor="email">Email</label>
             <input
               type="email"
-              id="firstname"
-              name="firstname"
+              id="email"
+              name="email"
               placeholder="Email"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
             />
           </div>
         </div>
@@ -56,6 +99,10 @@ const QuoteForm = () => {
               id="phone"
               name="phone"
               placeholder="Telephone / Mobile"
+              value={phone}
+              onChange={(e) => {
+                setPhone(e.target.value);
+              }}
             />
           </div>
         </div>
@@ -70,6 +117,10 @@ const QuoteForm = () => {
               id="fromCurrency"
               name="fromCurrency"
               placeholder="From Currency"
+              value={fromCurrency}
+              onChange={(e) => {
+                setFromCurrency(e.target.value);
+              }}
               required
             />
           </div>
@@ -83,6 +134,10 @@ const QuoteForm = () => {
               id="toCurrency"
               name="toCurrency"
               placeholder="To Currency"
+              value={toCurrency}
+              onChange={(e) => {
+                setToCurrency(e.target.value);
+              }}
               required
             />
           </div>
@@ -97,12 +152,16 @@ const QuoteForm = () => {
               id="amount"
               name="amount"
               placeholder="Amount"
+              value={amount}
+              onChange={(e) => {
+                setAmount(e.target.value);
+              }}
               required
             />
           </div>
         </div>
         <div className="oneline">
-          <input type="submit" value="GET QUOTE" />
+          <Button type="submit" value="GET QUOTE" />
         </div>
       </form>
     </Wrapper>
@@ -142,6 +201,7 @@ const Wrapper = styled.div`
       margin: 1rem 1rem;
       label {
         padding: 1rem 0rem;
+        cursor: pointer;
         span {
           font-size: 1rem;
           color: #ff4949;
@@ -175,6 +235,21 @@ const Wrapper = styled.div`
         }
       }
     }
+  }
+`;
+
+const Button = styled.input`
+  padding: 1.3rem 5rem;
+  background-color: #077ca3;
+  border: none;
+  border-radius: 2rem;
+  color: white;
+  font-size: 2rem;
+  margin: 1rem;
+  transition: all 0.5s ease;
+  :hover {
+    background-color: #26a5cf;
+    cursor: pointer;
   }
 `;
 
