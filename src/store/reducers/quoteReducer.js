@@ -1,4 +1,9 @@
-import { GET_QUOTE, QUOTE_ERROR } from "../types";
+import {
+  GET_QUOTE,
+  QUOTE_ERROR,
+  SET_LOADING_TRUE,
+  USER_INPUT_INFO,
+} from "../types";
 
 const initialState = {
   loading: true,
@@ -12,6 +17,19 @@ const quoteReducer = (state = initialState, action) => {
         ...action.payload,
         loading: false,
       };
+
+    case SET_LOADING_TRUE:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case USER_INPUT_INFO:
+      return {
+        ...state,
+        ...action.payload,
+      };
+
     case QUOTE_ERROR:
       return {
         loading: false,

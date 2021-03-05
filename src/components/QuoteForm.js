@@ -3,7 +3,10 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAsterisk } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
-import getQuote from "../store/actions/quoteAction";
+import { getQuote, setUserInputInfo } from "../store/actions/quoteAction";
+import QuoteDetail from "./QuoteDetail";
+import Loading from "./Loading";
+import { useHistory, useLocation } from "react-router-dom";
 
 const QuoteForm = () => {
   const star = <FontAwesomeIcon icon={faAsterisk} />;
@@ -22,18 +25,24 @@ const QuoteForm = () => {
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
-
+    dispatch(setUserInputInfo(fromCurrency, toCurrency, amount));
     dispatch(getQuote(fromCurrency, toCurrency, amount));
   };
 
+  const history = useHistory();
+
   useEffect(() => {
     if (!loading) {
-      console.log("hah");
+      history.push("/quote");
     }
   }, [loading]);
 
+  const path = useLocation().pathname;
+  const showQuoteDetail = path.includes("quote");
+
   return (
     <Wrapper className="formWrapper">
+      {showQuoteDetail ? !loading ? <QuoteDetail /> : "" : ""}
       <h2>Quick Quote</h2>
       <form
         onSubmit={(e) => {
