@@ -64,6 +64,15 @@ const GlobalStyled = createGlobalStyle`
     
 
     }
+    /* Media Query */
+    @media screen and (max-width: 800px) {
+
+        html{
+            font-size: 40%;
+        }
+
+
+    }
 
 `;
 
