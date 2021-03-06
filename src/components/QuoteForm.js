@@ -8,6 +8,8 @@ import QuoteDetail from "./QuoteDetail";
 import { useHistory, useLocation } from "react-router-dom";
 import CurrencyDropDownMenu from "./CurrencyDropDownMenu";
 import DialcodeDropDownMenu from "./DialcodeDropDownMenu";
+import { foramValidation } from "../util";
+import { motion } from "framer-motion";
 
 const QuoteForm = () => {
   const star = <FontAwesomeIcon icon={faAsterisk} />;
@@ -16,11 +18,12 @@ const QuoteForm = () => {
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [dialcode, setDialcode] = useState("+61");
-  const [phone, setPhone] = useState("");
+  const [phone, setPhone] = useState(null);
   const [fromCurrency, setFromCurrency] = useState("AUD");
   const [toCurrency, setToCurrency] = useState("USD");
   const [amount, setAmount] = useState("");
-
+  const [isFormValidate, setIsFormValidate] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
   const dispatch = useDispatch();
   const quoteInfo = useSelector((state) => state.quoteInfo);
 
@@ -28,8 +31,17 @@ const QuoteForm = () => {
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
-    dispatch(setUserInputInfo(fromCurrency, toCurrency, amount));
-    dispatch(getQuote(fromCurrency, toCurrency, amount));
+    const message = foramValidation(amount, phone);
+
+    if (message !== null) {
+      setErrorMessage(message);
+      setIsFormValidate(false);
+      return;
+    } else {
+      setIsFormValidate(true);
+      dispatch(setUserInputInfo(fromCurrency, toCurrency, amount));
+      dispatch(getQuote(fromCurrency, toCurrency, amount));
+    }
   };
 
   const history = useHistory();
@@ -47,6 +59,15 @@ const QuoteForm = () => {
     <Wrapper className="formWrapper">
       {showQuoteDetail ? !quoteInfoLoading ? <QuoteDetail /> : "" : ""}
       <h2>Quick Quote</h2>
+      {!isFormValidate && (
+        <ErrorMessage
+          transition={{ duration: 0.25 }}
+          initial={{ scale: 0.1 }}
+          animate={{ scale: !isFormValidate ? 1 : 0.1 }}
+        >
+          <p>{errorMessage}</p>
+        </ErrorMessage>
+      )}
       <form
         onSubmit={(e) => {
           formSubmitHandler(e);
@@ -64,8 +85,8 @@ const QuoteForm = () => {
               name="firstname"
               placeholder="First Name"
               value={firstname}
-              minLength=2
-              maxLength=15
+              minLength="2"
+              maxLength="15"
               onChange={(e) => {
                 setFirstname(e.target.value);
               }}
@@ -82,8 +103,8 @@ const QuoteForm = () => {
               id="lastname"
               name="lastname"
               placeholder="Last Name"
-              minLength=2
-              maxLength=15
+              minLength="2"
+              maxLength="15"
               value={lastname}
               onChange={(e) => {
                 setLastname(e.target.value);
@@ -122,8 +143,8 @@ const QuoteForm = () => {
                 type="text"
                 id="phone"
                 name="phone"
-                minLength=6
-              maxLength=15
+                minLength="6"
+                maxLength="15"
                 placeholder="Telephone / Mobile"
                 value={phone}
                 onChange={(e) => {
@@ -277,5 +298,13 @@ const Button = styled.input`
     cursor: pointer;
   }
 `;
-
+const ErrorMessage = styled(motion.div)`
+  width: 100%;
+  border: 1px solid lightgray;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  p {
+    color: red;
+  }
+`;
 export default QuoteForm;
