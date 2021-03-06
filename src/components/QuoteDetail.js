@@ -77,6 +77,10 @@ const Content = styled.div`
   .alignLeft {
     text-align: left;
   }
+  /* Media Query */
+  @media screen and (max-width: 1280px) {
+    width: 80%;
+  }
 `;
 
 const Rate = styled.h2`
