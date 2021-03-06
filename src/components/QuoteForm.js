@@ -5,9 +5,9 @@ import { faAsterisk } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { getQuote, setUserInputInfo } from "../store/actions/quoteAction";
 import QuoteDetail from "./QuoteDetail";
-import Loading from "./Loading";
 import { useHistory, useLocation } from "react-router-dom";
-import DropDownMenu from "./DropDownMenu";
+import CurrencyDropDownMenu from "./CurrencyDropDownMenu";
+import DialcodeDropDownMenu from "./DialcodeDropDownMenu";
 
 const QuoteForm = () => {
   const star = <FontAwesomeIcon icon={faAsterisk} />;
@@ -15,6 +15,7 @@ const QuoteForm = () => {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
+  const [dialcode, setDialcode] = useState("+61");
   const [phone, setPhone] = useState("");
   const [fromCurrency, setFromCurrency] = useState("AUD");
   const [toCurrency, setToCurrency] = useState("USD");
@@ -63,6 +64,8 @@ const QuoteForm = () => {
               name="firstname"
               placeholder="First Name"
               value={firstname}
+              minLength=2
+              maxLength=15
               onChange={(e) => {
                 setFirstname(e.target.value);
               }}
@@ -79,6 +82,8 @@ const QuoteForm = () => {
               id="lastname"
               name="lastname"
               placeholder="Last Name"
+              minLength=2
+              maxLength=15
               value={lastname}
               onChange={(e) => {
                 setLastname(e.target.value);
@@ -105,16 +110,27 @@ const QuoteForm = () => {
         <div className="oneline">
           <div className="inputWrapper">
             <label htmlFor="phone">Telephone / Mobile</label>
-            <input
-              type="text"
-              id="phone"
-              name="phone"
-              placeholder="Telephone / Mobile"
-              value={phone}
-              onChange={(e) => {
-                setPhone(e.target.value);
-              }}
-            />
+            <PhoneNumberWrapper>
+              <DialcodeDropDownMenu
+                value={dialcode}
+                content="dialcode"
+                onChangeHandler={setDialcode}
+                required={true}
+              />
+              <input
+                style={{ width: "85%" }}
+                type="text"
+                id="phone"
+                name="phone"
+                minLength=6
+              maxLength=15
+                placeholder="Telephone / Mobile"
+                value={phone}
+                onChange={(e) => {
+                  setPhone(e.target.value);
+                }}
+              />
+            </PhoneNumberWrapper>
           </div>
         </div>
 
@@ -123,58 +139,21 @@ const QuoteForm = () => {
             <label htmlFor="fromCurrency">
               From Currency <span>{star}</span>
             </label>
-            {/* <input
-              type="text"
-              id="fromCurrency"
-              name="fromCurrency"
-              placeholder="From Currency"
-              value={fromCurrency}
-              onChange={(e) => {
-                setFromCurrency(e.target.value);
-              }}
-              required
-            /> */}
-            <DropDownMenu
+
+            <CurrencyDropDownMenu
               content="fromCurrency"
               defaultValue="AUD"
               onChangeHandler={setFromCurrency}
               required={true}
             />
-
-            {/* <Select
-              onChange={(e) => setFromCurrency(e.target.value)}
-              id="fromCurrency"
-              name="fromCurrency"
-              required
-              defaultValue="AUD"
-            >
-              <optgroup label="Popular Currencies">
-                <option value="AUD">Australian Dollar (AUD)</option>
-                <option value="EUR">Euro (EUR)</option>
-                <option value="GBP">British Pound (GBP)</option>
-                <option value="JPY">Japanese Yen (JPY)</option>
-                <option value="USD">US Dollar (USD)</option>
-              </optgroup>
-            </Select> */}
           </div>
 
           <div className="inputWrapper">
             <label htmlFor="toCurrency">
               To Currency <span>{star}</span>
             </label>
-            {/* <input
-              type="text"
-              id="toCurrency"
-              name="toCurrency"
-              placeholder="To Currency"
-              value={toCurrency}
-              onChange={(e) => {
-                setToCurrency(e.target.value);
-              }}
-              required
-            /> */}
 
-            <DropDownMenu
+            <CurrencyDropDownMenu
               content="toCurrency"
               defaultValue="USD"
               onChangeHandler={setToCurrency}
@@ -279,6 +258,11 @@ const Wrapper = styled.div`
   }
 `;
 
+const PhoneNumberWrapper = styled.div`
+  display: flex;
+  width: 100%;
+`;
+
 const Button = styled.input`
   padding: 1.3rem 5rem;
   background-color: #077ca3;
@@ -292,18 +276,6 @@ const Button = styled.input`
     background-color: #26a5cf;
     cursor: pointer;
   }
-`;
-
-const Select = styled.select`
-  width: 100%;
-
-  height: 4.5rem;
-  padding: 1rem 1.5rem;
-  font-size: 2rem;
-  border: 1px solid lightgray;
-  border-radius: 0.5rem;
-  outline: none;
-  color: #797979;
 `;
 
 export default QuoteForm;

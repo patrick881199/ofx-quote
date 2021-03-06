@@ -2,19 +2,21 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
-const DropDownMenu = ({ defaultValue, onChangeHandler, content, required }) => {
+const CurrencyDropDownMenu = ({
+  defaultValue,
+  onChangeHandler,
+  content,
+  required,
+}) => {
   const countryInfo = useSelector((state) => state.countryInfo);
   const { loading: countryInfoLoading, currencyInfo } = countryInfo;
-  const [options, setOptions] = useState([
-    <option value="GBP">British Pound (GBP)</option>,
-    <option value="JPY">Japanese Yen (JPY)</option>,
-  ]);
+  const [options, setOptions] = useState([]);
   useEffect(() => {
     if (!countryInfoLoading) {
       for (var key in currencyInfo) {
         const v = currencyInfo[key];
         options.push(
-          <option value={v.code}>
+          <option value={v.code} key={v.code}>
             {v.name_plural} {v.code}
           </option>
         );
@@ -56,7 +58,7 @@ const Select = styled.select`
   color: #797979;
 `;
 
-export default DropDownMenu;
+export default CurrencyDropDownMenu;
 
 // <option value="EUR">Euro (EUR)</option>
 //       <option value="GBP">British Pound (GBP)</option>

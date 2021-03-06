@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 // import { faStar as eStar } from "@fortawesome/free-regular-svg-icons";
 import { useHistory } from "react-router-dom";
 
-import { SET_RETURNED_FALSE } from "../store/types";
 import { SET_LOADING_TRUE } from "../store/types";
 const QuoteDetail = () => {
   //const playstation = <FontAwesomeIcon icon={faPlaystation} />;
@@ -34,16 +33,22 @@ const QuoteDetail = () => {
   return (
     <StyledGameDetail className="Shadow" onClick={(e) => shadowClickHandler(e)}>
       <Content>
-        <h1>OFX Customer Rate</h1>
-        <Rate>{CustomerRate}</Rate>
-        <h1 className="alignLeft">From</h1>
-        <Amount>
-          {fromCurrency} <span>{amount}</span>
-        </Amount>
-        <h1 className="alignLeft">To</h1>
-        <Amount>
-          {toCurrency} <span>{CustomerAmount}</span>
-        </Amount>
+        {CustomerRate !== undefined ? (
+          <>
+            <h1>OFX Customer Rate</h1>
+            <Rate>{CustomerRate}</Rate>
+            <h1 className="alignLeft">From</h1>
+            <Amount>
+              {fromCurrency} <span>{amount}</span>
+            </Amount>
+            <h1 className="alignLeft">To</h1>
+            <Amount>
+              {toCurrency} <span>{CustomerAmount}</span>
+            </Amount>
+          </>
+        ) : (
+          <Warning>Term currency is currently not supported</Warning>
+        )}
       </Content>
     </StyledGameDetail>
   );
@@ -77,6 +82,21 @@ const Content = styled.div`
 
 const Rate = styled.h2`
   font-size: 8rem;
+  font-weight: bolder;
+  background: linear-gradient(left, #38d39f, #38a4d3);
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(#38d39f),
+    to(#38a4d3)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+`;
+
+const Warning = styled.h2`
+  font-size: 4rem;
   font-weight: bolder;
   background: linear-gradient(left, #38d39f, #38a4d3);
   background: -webkit-gradient(
