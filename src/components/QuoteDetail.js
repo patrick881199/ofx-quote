@@ -63,7 +63,7 @@ const Content = styled.div`
   text-align: center;
   border-radius: 2rem;
   background-color: white;
-  width: 40%;
+  width: 50%;
   margin: 10rem auto;
   padding: 3rem;
   h1 {

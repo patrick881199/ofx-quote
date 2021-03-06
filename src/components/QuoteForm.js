@@ -7,6 +7,7 @@ import { getQuote, setUserInputInfo } from "../store/actions/quoteAction";
 import QuoteDetail from "./QuoteDetail";
 import Loading from "./Loading";
 import { useHistory, useLocation } from "react-router-dom";
+import DropDownMenu from "./DropDownMenu";
 
 const QuoteForm = () => {
   const star = <FontAwesomeIcon icon={faAsterisk} />;
@@ -15,13 +16,14 @@ const QuoteForm = () => {
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [fromCurrency, setFromCurrency] = useState("");
-  const [toCurrency, setToCurrency] = useState("");
+  const [fromCurrency, setFromCurrency] = useState("AUD");
+  const [toCurrency, setToCurrency] = useState("USD");
   const [amount, setAmount] = useState("");
 
   const dispatch = useDispatch();
   const quoteInfo = useSelector((state) => state.quoteInfo);
-  const { loading } = quoteInfo;
+
+  const { loading: quoteInfoLoading } = quoteInfo;
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
@@ -32,17 +34,17 @@ const QuoteForm = () => {
   const history = useHistory();
 
   useEffect(() => {
-    if (!loading) {
+    if (!quoteInfoLoading) {
       history.push("/quote");
     }
-  }, [loading]);
+  }, [quoteInfoLoading]);
 
   const path = useLocation().pathname;
   const showQuoteDetail = path.includes("quote");
 
   return (
     <Wrapper className="formWrapper">
-      {showQuoteDetail ? !loading ? <QuoteDetail /> : "" : ""}
+      {showQuoteDetail ? !quoteInfoLoading ? <QuoteDetail /> : "" : ""}
       <h2>Quick Quote</h2>
       <form
         onSubmit={(e) => {
@@ -121,7 +123,7 @@ const QuoteForm = () => {
             <label htmlFor="fromCurrency">
               From Currency <span>{star}</span>
             </label>
-            <input
+            {/* <input
               type="text"
               id="fromCurrency"
               name="fromCurrency"
@@ -131,14 +133,36 @@ const QuoteForm = () => {
                 setFromCurrency(e.target.value);
               }}
               required
+            /> */}
+            <DropDownMenu
+              content="fromCurrency"
+              defaultValue="AUD"
+              onChangeHandler={setFromCurrency}
+              required={true}
             />
+
+            {/* <Select
+              onChange={(e) => setFromCurrency(e.target.value)}
+              id="fromCurrency"
+              name="fromCurrency"
+              required
+              defaultValue="AUD"
+            >
+              <optgroup label="Popular Currencies">
+                <option value="AUD">Australian Dollar (AUD)</option>
+                <option value="EUR">Euro (EUR)</option>
+                <option value="GBP">British Pound (GBP)</option>
+                <option value="JPY">Japanese Yen (JPY)</option>
+                <option value="USD">US Dollar (USD)</option>
+              </optgroup>
+            </Select> */}
           </div>
 
           <div className="inputWrapper">
             <label htmlFor="toCurrency">
               To Currency <span>{star}</span>
             </label>
-            <input
+            {/* <input
               type="text"
               id="toCurrency"
               name="toCurrency"
@@ -148,6 +172,13 @@ const QuoteForm = () => {
                 setToCurrency(e.target.value);
               }}
               required
+            /> */}
+
+            <DropDownMenu
+              content="toCurrency"
+              defaultValue="USD"
+              onChangeHandler={setToCurrency}
+              required={true}
             />
           </div>
         </div>
@@ -169,6 +200,7 @@ const QuoteForm = () => {
             />
           </div>
         </div>
+
         <div className="oneline">
           <Button type="submit" value="GET QUOTE" />
         </div>
@@ -260,6 +292,18 @@ const Button = styled.input`
     background-color: #26a5cf;
     cursor: pointer;
   }
+`;
+
+const Select = styled.select`
+  width: 100%;
+
+  height: 4.5rem;
+  padding: 1rem 1.5rem;
+  font-size: 2rem;
+  border: 1px solid lightgray;
+  border-radius: 0.5rem;
+  outline: none;
+  color: #797979;
 `;
 
 export default QuoteForm;
