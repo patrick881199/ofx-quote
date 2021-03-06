@@ -18,7 +18,7 @@ const QuoteForm = () => {
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [dialcode, setDialcode] = useState("+61");
-  const [phone, setPhone] = useState(null);
+  const [phone, setPhone] = useState("");
   const [fromCurrency, setFromCurrency] = useState("AUD");
   const [toCurrency, setToCurrency] = useState("USD");
   const [amount, setAmount] = useState("");

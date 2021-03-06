@@ -21,7 +21,7 @@ const validPhone = (phone) =>
 export const foramValidation = (amount, phone) => {
   let message = null;
 
-  if (phone !== null && !validPhone(phone)) {
+  if (phone.length > 0 && !validPhone(phone)) {
     message = "Invalid phone number";
   } else if (!validAmount(amount)) {
     message = "Invalid amount";
