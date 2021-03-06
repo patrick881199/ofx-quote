@@ -55,7 +55,15 @@ const GlobalStyled = createGlobalStyle`
         font-family: "Montserrat", sans-serif;
     }
 
+    /* Media Query */
+    @media screen and (max-width: 1280px) {
+
+        html{
+            font-size: 50%;
+        }
     
+
+    }
 
 `;
 

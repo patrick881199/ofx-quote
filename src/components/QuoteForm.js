@@ -192,6 +192,8 @@ const QuoteForm = () => {
               id="amount"
               name="amount"
               placeholder="Amount"
+              minLength="1"
+              maxLength="7"
               value={amount}
               onChange={(e) => {
                 setAmount(e.target.value);
@@ -277,6 +279,11 @@ const Wrapper = styled.div`
       }
     }
   }
+
+  /* Media Query */
+  @media screen and (max-width: 1280px) {
+    width: 80%;
+  }
 `;
 
 const PhoneNumberWrapper = styled.div`
@@ -307,4 +314,5 @@ const ErrorMessage = styled(motion.div)`
     color: red;
   }
 `;
+
 export default QuoteForm;
