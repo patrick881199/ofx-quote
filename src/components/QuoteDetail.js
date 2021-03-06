@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import { motion } from "framer-motion";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faStar as eStar } from "@fortawesome/free-regular-svg-icons";
 import { useHistory } from "react-router-dom";
