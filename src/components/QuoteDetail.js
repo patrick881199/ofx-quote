@@ -1,14 +1,13 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faStar as eStar } from "@fortawesome/free-regular-svg-icons";
+import { motion } from "framer-motion";
 import { useHistory } from "react-router-dom";
 
 import { SET_LOADING_TRUE } from "../store/types";
-const QuoteDetail = () => {
-  //const playstation = <FontAwesomeIcon icon={faPlaystation} />;
+import { quoteAnim } from "../animation";
 
+const QuoteDetail = () => {
   const quoteInfo = useSelector((state) => state.quoteInfo);
   const {
     CustomerRate,
@@ -30,7 +29,13 @@ const QuoteDetail = () => {
   };
 
   return (
-    <StyledGameDetail className="Shadow" onClick={(e) => shadowClickHandler(e)}>
+    <StyledGameDetail
+      className="Shadow"
+      onClick={(e) => shadowClickHandler(e)}
+      variants={quoteAnim}
+      initial="hidden"
+      animate="show"
+    >
       <Content>
         {CustomerRate !== undefined ? (
           <>
@@ -53,7 +58,7 @@ const QuoteDetail = () => {
   );
 };
 
-const StyledGameDetail = styled.div`
+const StyledGameDetail = styled(motion.div)`
   background-color: rgba(0, 0, 0, 0.1);
   position: fixed;
   top: 0;

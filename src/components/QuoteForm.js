@@ -10,6 +10,7 @@ import CurrencyDropDownMenu from "./CurrencyDropDownMenu";
 import DialcodeDropDownMenu from "./DialcodeDropDownMenu";
 import { foramValidation } from "../util";
 import { motion } from "framer-motion";
+import { quoteAnim } from "../animation";
 
 const QuoteForm = () => {
   const star = <FontAwesomeIcon icon={faAsterisk} />;
@@ -57,7 +58,9 @@ const QuoteForm = () => {
 
   return (
     <Wrapper className="formWrapper">
-      {showQuoteDetail ? !quoteInfoLoading ? <QuoteDetail /> : "" : ""}
+      {showQuoteDetail && !quoteInfoLoading && (
+        <QuoteDetail variants={quoteAnim} />
+      )}
       <h2>Quick Quote</h2>
       {!isFormValidate && (
         <ErrorMessage
