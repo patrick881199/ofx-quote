@@ -28,7 +28,7 @@ const CurrencyDropDownMenu = ({
 
       setOptions(options.slice());
     }
-  }, [countryInfoLoading]);
+  }, [countryInfoLoading]); //eslint-disable-line
 
   return (
     <Select

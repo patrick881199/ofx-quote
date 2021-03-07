@@ -16,7 +16,7 @@ const validAmount = (amount) => {
 };
 
 const validPhone = (phone) =>
-  phone.match(/^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g);
+  phone.match(/^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s/0-9]*$/g); //eslint-disable-line
 
 export const foramValidation = (amount, phone) => {
   let message = null;

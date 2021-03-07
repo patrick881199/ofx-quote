@@ -80,7 +80,7 @@ const QuoteForm = () => {
     if (!quoteInfoLoading) {
       history.push("/quote");
     }
-  }, [quoteInfoLoading]);
+  }, [quoteInfoLoading]); //eslint-disable-line
 
   //used to detect whether the current link is direct to "/quote"
   //is yes, the quote detail info will show up right on the current page
