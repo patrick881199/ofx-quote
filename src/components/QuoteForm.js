@@ -82,7 +82,7 @@ const QuoteForm = () => {
               First Name <span>{star}</span>
             </label>
 
-            <input
+            <StyledInput
               type="text"
               id="firstname"
               name="firstname"
@@ -101,7 +101,7 @@ const QuoteForm = () => {
             <label htmlFor="lastname">
               Last Name <span>{star}</span>
             </label>
-            <input
+            <StyledInput
               type="text"
               id="lastname"
               name="lastname"
@@ -119,7 +119,7 @@ const QuoteForm = () => {
         <div className="oneline">
           <div className="inputWrapper">
             <label htmlFor="email">Email</label>
-            <input
+            <StyledInput
               type="email"
               id="email"
               name="email"
@@ -141,8 +141,7 @@ const QuoteForm = () => {
                 onChangeHandler={setDialcode}
                 required={true}
               />
-              <input
-                style={{ width: "85%" }}
+              <PhoneInput
                 type="text"
                 id="phone"
                 name="phone"
@@ -190,7 +189,7 @@ const QuoteForm = () => {
             <label htmlFor="amount">
               Amount <span>{star}</span>
             </label>
-            <input
+            <StyledInput
               type="text"
               id="amount"
               name="amount"
@@ -253,39 +252,48 @@ const Wrapper = styled.div`
           color: #ff4949;
         }
       }
-      input {
-        width: 100%;
-
-        height: 4.5rem;
-        padding: 1rem 1.5rem;
-        font-size: 2rem;
-        border: 1px solid lightgray;
-        border-radius: 0.5rem;
-        outline: none;
-        color: #797979;
-
-        ::placeholder {
-          /* Chrome, Firefox, Opera, Safari 10.1+ */
-          color: lightgray;
-          opacity: 1; /* Firefox */
-        }
-
-        :-ms-input-placeholder {
-          /* Internet Explorer 10-11 */
-          color: lightgray;
-        }
-
-        ::-ms-input-placeholder {
-          /* Microsoft Edge */
-          color: lightgray;
-        }
-      }
     }
   }
 
   /* Media Query */
   @media screen and (max-width: 1280px) {
-    width: 80%;
+    width: 90%;
+  }
+`;
+
+const StyledInput = styled.input`
+  width: 100%;
+
+  height: 4.5rem;
+  padding: 1rem 1.5rem;
+  font-size: 2rem;
+  border: 1px solid lightgray;
+  border-radius: 0.5rem;
+  outline: none;
+  color: #797979;
+
+  ::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: lightgray;
+    opacity: 1; /* Firefox */
+  }
+
+  :-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: lightgray;
+  }
+
+  ::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: lightgray;
+  }
+`;
+
+const PhoneInput = styled(StyledInput)`
+  width: 85%;
+  /* Media Query */
+  @media screen and (max-width: 1280px) {
+    width: 70%;
   }
 `;
 

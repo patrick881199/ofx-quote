@@ -51,6 +51,11 @@ const Select = styled.select`
   border-radius: 0.5rem;
   outline: none;
   color: #797979;
+
+  /* Media Query */
+  @media screen and (max-width: 1280px) {
+    width: 30%;
+  }
 `;
 
 export default DialcodeDropDownMenu;

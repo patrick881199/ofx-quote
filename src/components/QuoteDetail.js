@@ -59,6 +59,7 @@ const QuoteDetail = () => {
 };
 
 const StyledGameDetail = styled(motion.div)`
+  z-index: 10;
   background-color: rgba(0, 0, 0, 0.1);
   position: fixed;
   top: 0;
@@ -82,10 +83,6 @@ const Content = styled.div`
   .alignLeft {
     text-align: left;
   }
-  /* Media Query */
-  @media screen and (max-width: 1280px) {
-    width: 80%;
-  }
 `;
 
 const Rate = styled.h2`
@@ -101,6 +98,10 @@ const Rate = styled.h2`
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  /* Media Query */
+  @media screen and (max-width: 1280px) {
+    font-size: 5rem;
+  }
 `;
 
 const Warning = styled.h2`
@@ -116,6 +117,9 @@ const Warning = styled.h2`
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  @media screen and (max-width: 1280px) {
+    font-size: 3rem;
+  }
 `;
 
 const Amount = styled.div`
@@ -125,6 +129,13 @@ const Amount = styled.div`
   font-size: 6rem;
   span {
     color: #5fc8ea;
+  }
+  @media screen and (max-width: 1280px) {
+    font-size: 4rem;
+  }
+
+  @media screen and (max-width: 800px) {
+    font-size: 2.5rem;
   }
 `;
 export default QuoteDetail;
