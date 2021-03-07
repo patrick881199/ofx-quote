@@ -1,6 +1,8 @@
 import { GET_QUOTE, QUOTE_ERROR, USER_INPUT_INFO } from "../types";
 import axios from "axios";
 import { getQuoteUrl } from "../../api";
+
+//calling ofx api
 export const getQuote = (fromCurrency, toCurrency, amount) => async (
   dispatch
 ) => {
@@ -18,6 +20,9 @@ export const getQuote = (fromCurrency, toCurrency, amount) => async (
   }
 };
 
+//no calling api
+//just store the following three user-input info into store for showing in the result later
+//because in the retuning api data, there are no following info(needed to show in the result)
 export const setUserInputInfo = (fromCurrency, toCurrency, amount) => (
   dispatch
 ) => {

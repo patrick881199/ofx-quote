@@ -24,6 +24,7 @@ const quoteReducer = (state = initialState, action) => {
         loading: true,
       };
 
+    //store user-input data
     case USER_INPUT_INFO:
       return {
         ...state,

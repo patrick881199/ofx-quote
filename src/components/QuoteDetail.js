@@ -20,7 +20,11 @@ const QuoteDetail = () => {
 
   const history = useHistory();
   const dispatch = useDispatch();
+
+  //when user click the shadow area of quotedetail component
+  //redirect to "/" which is the form
   const shadowClickHandler = (e) => {
+    //checking whether shadow area is clicked by detect the event class name
     if (e.target.classList.contains("Shadow")) {
       dispatch({
         type: SET_LOADING_TRUE,

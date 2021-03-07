@@ -7,7 +7,9 @@ function App() {
       <GlobalStyled />
       <Router>
         <Switch>
-          <Route path="/">
+          {/* either paths gonna go to the same quote form page */}
+          {/* it's just the quote detial is showing or not */}
+          <Route path={["/quote", "/"]}>
             <QuotePage />
           </Route>
         </Switch>
