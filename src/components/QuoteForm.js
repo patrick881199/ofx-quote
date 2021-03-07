@@ -1,14 +1,25 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+//use fontawesome react component for the required star icon
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAsterisk } from "@fortawesome/free-solid-svg-icons";
+
+//This app use react-redux to store data
 import { useDispatch, useSelector } from "react-redux";
+//the action to call ofx api to get quote info
 import { getQuote, setUserInputInfo } from "../store/actions/quoteAction";
+
 import QuoteDetail from "./QuoteDetail";
 import { useHistory, useLocation } from "react-router-dom";
+
+//these to drop down menu use the api data as options
 import CurrencyDropDownMenu from "./CurrencyDropDownMenu";
 import DialcodeDropDownMenu from "./DialcodeDropDownMenu";
+
+//implement some basic form validation
 import { foramValidation } from "../util";
+
+//for the page animation and quotedetail showing animation
 import { motion } from "framer-motion";
 import { quoteAnim } from "../animation";
 
@@ -25,6 +36,7 @@ const QuoteForm = () => {
   const [amount, setAmount] = useState("");
   const [isFormValidate, setIsFormValidate] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
+
   const dispatch = useDispatch();
   const quoteInfo = useSelector((state) => state.quoteInfo);
 
@@ -32,37 +44,62 @@ const QuoteForm = () => {
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
+
     const message = foramValidation(amount, phone);
 
     if (message !== null) {
+      //The following two boolean varibles are used to determing the showing of error message bar
       setErrorMessage(message);
       setIsFormValidate(false);
       return;
     } else {
+      //if form is validated, then use the user input data to call the api
       setIsFormValidate(true);
-      dispatch(setUserInputInfo(fromCurrency, toCurrency, amount));
-      dispatch(getQuote(fromCurrency, toCurrency, amount));
+
+      //store the following three user-input info into store for showing in the result later
+      //because in the retuning api data, there are no following info(needed to show in the result)
+      dispatch(
+        setUserInputInfo(
+          fromCurrency,
+          toCurrency,
+          parseFloat(amount).toFixed(2)
+        )
+      );
+
+      //calling the backend api to get quote
+      dispatch(
+        getQuote(fromCurrency, toCurrency, parseFloat(amount).toFixed(2))
+      );
     }
   };
 
   const history = useHistory();
 
+  //when api data calling succeed, redirect to url "/quote"
   useEffect(() => {
     if (!quoteInfoLoading) {
       history.push("/quote");
     }
   }, [quoteInfoLoading]);
 
+  //used to detect whether the current link is direct to "/quote"
+  //is yes, the quote detail info will show up right on the current page
   const path = useLocation().pathname;
   const showQuoteDetail = path.includes("quote");
 
   return (
     <Wrapper className="formWrapper">
+      {/* the thresholds to show quotedetail are  */}
+      {/* firstly whether the link is direct to /quote */}
+      {/* secondly, whether the quote info has been loaded */}
       {showQuoteDetail && !quoteInfoLoading && (
         <QuoteDetail variants={quoteAnim} />
       )}
+
+      {/* if form validation fail, the error message gonna appear */}
       <h2>Quick Quote</h2>
       {!isFormValidate && (
+        // add some framer motion animation
         <ErrorMessage
           transition={{ duration: 0.25 }}
           initial={{ scale: 0.1 }}
@@ -195,7 +232,7 @@ const QuoteForm = () => {
               name="amount"
               placeholder="Amount"
               minLength="1"
-              maxLength="7"
+              maxLength="10"
               value={amount}
               onChange={(e) => {
                 setAmount(e.target.value);

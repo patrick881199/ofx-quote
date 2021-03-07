@@ -1,3 +1,4 @@
+//framer motion animatino for showing page  and quote detail
 export const pageAnimation = {
   hidden: {
     opacity: 0,

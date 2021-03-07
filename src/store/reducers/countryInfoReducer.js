@@ -1,5 +1,6 @@
 import { GET_COUNTRY_INFO, GET_COUNTRY_INFO_ERROR } from "../types";
 
+//
 const initialState = {
   loading: true,
   currencyInfo: {},

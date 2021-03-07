@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
+//Get the dialcode info(get from api) fro redux store
 const DialcodeDropDownMenu = ({
   value,
   defaultValue,
@@ -9,9 +10,12 @@ const DialcodeDropDownMenu = ({
   content,
   required,
 }) => {
+  //get info from redux store
   const countryInfo = useSelector((state) => state.countryInfo);
   const { loading: countryInfoLoading, dialCode } = countryInfo;
   const [options, setOptions] = useState([]);
+
+  //when countryInfo returned from api, loop and display it
   useEffect(() => {
     if (!countryInfoLoading) {
       dialCode.map((v, k) => {

@@ -8,6 +8,7 @@ import { SET_LOADING_TRUE } from "../store/types";
 import { quoteAnim } from "../animation";
 
 const QuoteDetail = () => {
+  //get detial quote info from redux store
   const quoteInfo = useSelector((state) => state.quoteInfo);
   const {
     CustomerRate,
@@ -29,6 +30,7 @@ const QuoteDetail = () => {
   };
 
   return (
+    //Add showing animation for the component
     <StyledGameDetail
       className="Shadow"
       onClick={(e) => shadowClickHandler(e)}

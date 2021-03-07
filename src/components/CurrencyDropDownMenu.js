@@ -2,15 +2,19 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
+//Get the currency info(get from api) fro redux store
 const CurrencyDropDownMenu = ({
   defaultValue,
   onChangeHandler,
   content,
   required,
 }) => {
+  //get dialcode info from redux store
   const countryInfo = useSelector((state) => state.countryInfo);
   const { loading: countryInfoLoading, currencyInfo } = countryInfo;
   const [options, setOptions] = useState([]);
+
+  //when dialcode returned from api, loop and display it
   useEffect(() => {
     if (!countryInfoLoading) {
       for (var key in currencyInfo) {
