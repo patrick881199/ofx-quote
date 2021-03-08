@@ -45,7 +45,7 @@ const QuoteForm = () => {
   const formSubmitHandler = (e) => {
     e.preventDefault();
 
-    const message = foramValidation(amount, phone);
+    const message = foramValidation(amount, phone, fromCurrency, toCurrency);
 
     if (message !== null) {
       //The following two boolean varibles are used to determing the showing of error message bar

@@ -18,11 +18,13 @@ const validAmount = (amount) => {
 const validPhone = (phone) =>
   phone.match(/^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s/0-9]*$/g); //eslint-disable-line
 
-export const foramValidation = (amount, phone) => {
+export const foramValidation = (amount, phone, fromCurrency, toCurrency) => {
   let message = null;
 
   if (phone.length > 0 && !validPhone(phone)) {
     message = "Invalid phone number";
+  } else if (fromCurrency === toCurrency) {
+    message = "Please pick different currency";
   } else if (!validAmount(amount)) {
     message = "Invalid amount";
   }
