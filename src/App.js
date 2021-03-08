@@ -1,3 +1,4 @@
+import React from "react";
 import GlobalStyled from "./components/GlobalStyles";
 import QuotePage from "./pages/QuotePage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
