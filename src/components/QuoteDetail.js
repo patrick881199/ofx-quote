@@ -41,6 +41,7 @@ const QuoteDetail = () => {
       variants={quoteAnim}
       initial="hidden"
       animate="show"
+      data-testid="Shadow"
     >
       <Content>
         {CustomerRate !== undefined && CustomerRate !== 0 ? (

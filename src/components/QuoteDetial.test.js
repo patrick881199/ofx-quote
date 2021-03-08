@@ -1,9 +1,9 @@
 import React from "react";
 import configureStore from "redux-mock-store";
-import { render, screen } from "@testing-library/react";
+import { render, screen } from "../custom-render";
 import { Provider } from "react-redux";
-
 import QuoteDetail from "./QuoteDetail";
+import userEvent from "@testing-library/user-event";
 const mockStore = configureStore([]);
 
 describe("<QuoteDetail />", () => {
@@ -37,5 +37,12 @@ describe("<QuoteDetail />", () => {
     expect(screen.getByText("10000.00")).toBeInTheDocument();
     expect(screen.getByText("CNY")).toBeInTheDocument();
     expect(screen.getByText("40000.00")).toBeInTheDocument();
+  });
+
+  it("should history.push('/') when click shadow area", () => {
+    {
+      component;
+    }
+    userEvent.click(screen.getByTestId("Shadow"));
   });
 });

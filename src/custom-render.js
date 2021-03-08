@@ -4,6 +4,8 @@ import { Provider } from "react-redux";
 import store from "./store/store";
 import { MemoryRouter } from "react-router-dom";
 
+//this component is used for components created by test renderer
+//so that those components can access the state and router
 const Wrapper = ({ children }) => {
   return (
     <Provider store={store}>
