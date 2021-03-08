@@ -358,9 +358,8 @@ const ErrorMessage = styled(motion.div)`
   border: 1px solid lightgray;
   padding: 1rem;
   border-radius: 0.5rem;
-  p {
-    color: red;
-  }
+  background-color: #ffe3e6;
+  border-color: rgba(156 27 33 0.2);
 `;
 
 export default QuoteForm;
