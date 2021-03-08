@@ -43,7 +43,7 @@ const QuoteDetail = () => {
       animate="show"
     >
       <Content>
-        {CustomerRate !== undefined ? (
+        {CustomerRate !== undefined && CustomerRate !== 0 ? (
           <>
             <h1>OFX Customer Rate</h1>
             <Rate>{CustomerRate}</Rate>

@@ -1,16 +1,14 @@
+//check whether input amount is numeric
 const isNumeric = (str) => {
-  if (typeof str != "string") return false; // we only process strings!
-  return (
-    !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
-    !isNaN(parseFloat(str))
-  ); // ...and ensure strings of whitespace fail
+  if (typeof str != "string") return false;
+  return !isNaN(str) && !isNaN(parseFloat(str));
 };
 
 const validAmount = (amount) => {
   if (!isNumeric(amount)) {
     return false;
   } else {
-    if (amount < 0 || amount > 1000000) return false;
+    if (amount < 0 || amount > 1000000000) return false;
   }
   return true;
 };
