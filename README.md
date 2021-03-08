@@ -2,9 +2,11 @@
 
 https://ofxquote.netlify.app/
 
-![alt text](https://github.com/patrick881199/ofx-quote/blob/main/src/imgs/1.PNG)
-![alt text](https://github.com/patrick881199/ofx-quote/blob/main/src/imgs/2.PNG)
-![alt text](https://github.com/patrick881199/ofx-quote/blob/main/src/imgs/3.PNG)
+## ![alt text](https://github.com/patrick881199/ofx-quote/blob/main/src/imgs/1.PNG)
+
+## ![alt text](https://github.com/patrick881199/ofx-quote/blob/main/src/imgs/2.PNG)
+
+## ![alt text](https://github.com/patrick881199/ofx-quote/blob/main/src/imgs/3.PNG)
 
 ## Steps to Setup the React Front end app (OfxQuote)
 
