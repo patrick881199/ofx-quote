@@ -1,10 +1,18 @@
 import React from "react";
 import configureStore from "redux-mock-store";
-import { render, screen } from "../custom-render";
+import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import QuoteDetail from "./QuoteDetail";
 import userEvent from "@testing-library/user-event";
 const mockStore = configureStore([]);
+
+const mockHistoryPush = jest.fn();
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useHistory: () => ({
+    push: mockHistoryPush,
+  }),
+}));
 
 describe("<QuoteDetail />", () => {
   let store;
@@ -44,5 +52,6 @@ describe("<QuoteDetail />", () => {
       component;
     }
     userEvent.click(screen.getByTestId("Shadow"));
+    expect(mockHistoryPush).toBeCalledWith("/");
   });
 });
