@@ -6,6 +6,7 @@ import QuoteDetail from "./QuoteDetail";
 import userEvent from "@testing-library/user-event";
 const mockStore = configureStore([]);
 
+//mocik hitory.push
 const mockHistoryPush = jest.fn();
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
@@ -18,6 +19,7 @@ describe("<QuoteDetail />", () => {
   let store;
   let component;
   beforeEach(() => {
+    //mock redux store
     store = mockStore({
       quoteInfo: {
         CustomerRate: "4.0",
@@ -47,10 +49,11 @@ describe("<QuoteDetail />", () => {
     expect(screen.getByText("40000.00")).toBeInTheDocument();
   });
 
-  it("should history.push('/') when click shadow area", () => {
+  it("call history.push('/') when click shadow area", () => {
     {
       component;
     }
+    //test when clicking shadow area, page redirect to "/"
     userEvent.click(screen.getByTestId("Shadow"));
     expect(mockHistoryPush).toBeCalledWith("/");
   });
