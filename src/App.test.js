@@ -12,5 +12,5 @@ describe("<App />", () => {
     expect(screen.getByText(/Quick Quote/i)).toBeInTheDocument();
   });
 
-  //need to do a more complete funcational test as well as unit test
+  //further functional test needed
 });
